@@ -20,17 +20,8 @@ public class CarsController {
     }
 
     @GetMapping()
-    public String printSomeCars(@RequestParam(value = "count", required = false) String count, Model model) {
-        if (count != null) {
-            int counterInt = Integer.parseInt(count);
-            if (counterInt < 5) {
-                model.addAttribute("cars", carService.getCars(counterInt));
-            } else {
-                model.addAttribute("cars", carService.getAllCars());
-            }
-        } else {
-            model.addAttribute("cars", carService.getAllCars());
-        }
+    public String printSomeCars(@RequestParam(defaultValue = "5") int count, Model model) {
+        model.addAttribute("cars", carService.getCars(count));
         return "cars";
     }
 }
